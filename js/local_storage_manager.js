@@ -54,7 +54,14 @@ LocalStorageManager.prototype.getGameState = function () {
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
+// Prevoius game state getters/setters and clearing
+LocalStorageManager.prototype.getPreviousGameState = function () {
+  var stateJSON = this.storage.getItem(this.gameStateKey + '-previous');
+  return stateJSON ? JSON.parse(stateJSON) : null;
+};
+
 LocalStorageManager.prototype.setGameState = function (gameState) {
+  this.storage.setItem(this.gameStateKey + '-previous', JSON.stringify(this.getGameState()))
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
 };
 
